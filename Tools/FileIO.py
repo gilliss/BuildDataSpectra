@@ -15,9 +15,9 @@ class FileIO:
         self.file_index = st.file_index
 
         # Environment variables
-        self.skim_data_dirname = st.skim_data_dirname
-        self.channel_data_dirname = st.channel_data_dirname
-        self.bds_output_dirname = st.bds_output_dirname
+        self.skim_data_dirname = os.environ['MJDDATADIR'] + '/surfmjd/analysis/skim'
+        self.channel_data_dirname = os.environ['CHANNELDATADIR']
+        self.bds_output_dirname = os.environ['BDSOUTPUTDIR']
 
         self.di = DataInfo.DataInfo(st)
 
