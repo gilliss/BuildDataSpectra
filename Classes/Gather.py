@@ -2,6 +2,8 @@
 """
 from ROOT import TFile, TChain
 
+import Tools.FileIO as FileIO
+
 class Gather:
     """
     """
@@ -10,21 +12,20 @@ class Gather:
         self.data_type = st.data_type
         self.file_index = st.file_index
 
+        self.io = FileIO.FileIO(st)
+
     def Run(self):
         """
         """
-        data_set = self.data_set
-        data_type = self.data_type
-        file_index = self.file_index
+        io = self.io
 
         print('Gather::Run()')
 
         # READ FILES INTO TCHAIN
         t = TChain('skimTree', 'skimTree')
-        in_file = GetSkimPath(data_set, data_type, file_index) # specSkimFile may be None
+        in_file = io.GetSkimFilePath()
         t.Add(in_file)
         n_entries = t.GetEntries()
         print('in_file', in_file)
         print('t', t)
         print('t.GetEntries()', n_entries)
-        in_file.Close()

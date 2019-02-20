@@ -32,7 +32,7 @@ if __name__ == "__main__":
     parser.add_argument('--stitch', dest = 'stitch', action = 'store_true', default = False,\
         help = 'Stitch gathered hits. If not invoked, default behavior is gather hits.')
     parser.add_argument('data_set', metavar = 'data_set', type = str,\
-        help = 'str of data set: \'0\',\'1\',\'2\',\'3\',\'4\',\'5a\',\'5b\',\'5c\',\'6\'')
+        help = 'str of data set: \'DS0\',\'DS1\',\'DS2\',\'DS3\',\'DS4\',\'DS5a\',\'DS5b\',\'DS5c\',\'DS6\'')
     parser.add_argument('data_type', metavar = 'data_type', type = str,\
         help = 'str for \'open\' or \'blind\' data')
     parser.add_argument('--file_index', dest = 'file_index', type = int,\
