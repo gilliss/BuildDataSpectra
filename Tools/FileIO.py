@@ -52,6 +52,7 @@ class FileIO:
 
     def SaveNPY(self, array, cpd, cut_scheme):
         """
+        Save arrays in individual files
         """
         data_set = self.data_set
         data_type = self.data_type
@@ -84,3 +85,14 @@ class FileIO:
         path = dirname + '/' + basename
 
         np.savez(file = path, arrayDict = dict) # the LHS arrayDict is used as the keyword
+
+    def GetGlobPathNPZ(self):
+        """
+        """
+        data_set = self.data_set
+        data_type = self.data_type
+        bds_output_dirname = self.bds_output_dirname
+
+        dirname = bds_output_dirname
+        basename = '%s_%s_*.npz' % (data_set, data_type)
+        return dirname + '/' + basename

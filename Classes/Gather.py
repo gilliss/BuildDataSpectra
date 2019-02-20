@@ -8,6 +8,7 @@ import Tools.DataInfo as DataInfo
 
 class Gather:
     """
+    Gather hits into arrays and save
     """
     def __init__(self, st):
         self.data_set = st.data_set
@@ -19,6 +20,7 @@ class Gather:
 
     def Run(self):
         """
+        Gather hits into arrays and save
         """
         file_index = self.file_index
         io = self.io
@@ -59,11 +61,12 @@ class Gather:
                             data_dict[cpd][cut_scheme] =\
                                 np.insert(data_dict[cpd][cut_scheme], len(data_dict[cpd][cut_scheme]), t.trapENFCalC[j])
 
-        # io.SaveNPZ(data_dict)
+        # Save
+        io.SaveNPZ(data_dict)
 
         # Loop each channel and cut in channel data dict and save
-        for cpd in data_dict:
-            for cut_scheme in data_dict[cpd]:
-                io.SaveNPY(data_dict[cpd][cut_scheme], cpd, cut_scheme)
+        # for cpd in data_dict:
+        #     for cut_scheme in data_dict[cpd]:
+        #         io.SaveNPY(data_dict[cpd][cut_scheme], cpd, cut_scheme)
 
         print('FINISHED')
