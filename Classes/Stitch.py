@@ -28,8 +28,6 @@ class Stitch:
         di = self.di
         cut_scheme_list = di.cut_scheme_list
 
-        print('Stitch::Run()')
-
         # Read in channel data dict
         channel_data_dict = di.GetChannelData()
 

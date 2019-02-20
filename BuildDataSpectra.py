@@ -14,11 +14,9 @@ def main(args):
     st = Settings.Settings(args)
 
     if not st.stitch:
-        print('gather')
         gather = Gather.Gather(st)
         gather.Run()
     else:
-        print('stitch')
         stitch = Stitch.Stitch(st)
         stitch.Run()
 

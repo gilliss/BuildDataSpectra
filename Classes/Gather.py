@@ -27,8 +27,6 @@ class Gather:
         di = self.di
         cut_scheme_list = di.cut_scheme_list
 
-        print('Gather::Run()')
-
         # Read files into TChain
         t = TChain('skimTree', 'skimTree')
         in_file_path = io.GetSkimFilePath()
@@ -51,8 +49,8 @@ class Gather:
         # Loop TChain
         for i in range(n_entries):
             entry = t.GetEntry(i)
-            if i % int(0.1 * n_entries) == 0:
-                print('progress ... %.0f pct ... on entry %d' % (100*(i/n_entries), i))
+            # if i % int(0.1 * n_entries) == 0:
+            #     print('progress ... %.0f pct ... on entry %d' % (100*(i/n_entries), i))
             for j in range(len(t.channel)):
                 cpd = 'C' + str(t.C[j]) + 'P' + str(t.P[j]) + 'D' + str(t.D[j])
                 if cpd in data_dict:
@@ -61,12 +59,13 @@ class Gather:
                             data_dict[cpd][cut_scheme] =\
                                 np.insert(data_dict[cpd][cut_scheme], len(data_dict[cpd][cut_scheme]), t.trapENFCalC[j])
 
-        # Save
+        # Save NPZ
         io.SaveNPZ(data_dict)
 
+        # Save NPY
         # Loop each channel and cut in channel data dict and save
         # for cpd in data_dict:
         #     for cut_scheme in data_dict[cpd]:
         #         io.SaveNPY(data_dict[cpd][cut_scheme], cpd, cut_scheme)
 
-        print('FINISHED')
+        # print('FINISHED')

@@ -88,6 +88,7 @@ class FileIO:
 
     def GetGlobPathNPZ(self):
         """
+        Get wildcard path to NPZ files from split jobs
         """
         data_set = self.data_set
         data_type = self.data_type
