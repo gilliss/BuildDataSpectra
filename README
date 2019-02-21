@@ -1,0 +1,16 @@
+Gather GATified MJD data into arrays of hits, with various cuts applied.
+Save the gathered data in HDF5 files.
+
+This code requires PyROOT, NumPy, and h5py.
+Additionally, the env variables $MJDDATADIR, $CHANNELDATADIR, and $BDSOUTPUTDIR should be set.
+
+The code can be run to:
+-gather hits from all skim files of an open or blinded data set, e.g.
+	BuildDataSpectra.py DS0 open
+-gather hits from a specific skim file of an open of blind data set, e.g.
+	BuildDataSpectra.py DS0 open --file_index 30
+-stitch together hits previously gathered from specific skim files, e.g.
+	BuildDataSpectra.py DS0 open --stitch
+
+Usage:
+	BuildDataSpectra.py [-h] [--stitch] [--file_index FILE_INDEX] data_set data_type
