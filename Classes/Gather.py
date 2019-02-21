@@ -32,9 +32,9 @@ class Gather:
         in_file_path = io.GetSkimFilePath()
         t.Add(in_file_path)
         n_entries = t.GetEntries()
-        print('in_file_path', in_file_path)
-        print('t', t)
-        print('t.GetEntries()', n_entries)
+        # print('in_file_path', in_file_path)
+        # print('t', t)
+        # print('t.GetEntries()', n_entries)
 
         # Read in channel data dict
         channel_data_dict = di.GetChannelData()

@@ -39,16 +39,17 @@ class FileIO:
         if data_type == 'blind': dirname += '/' + '%s_blind_b14' % data_set_base
         dirname += '/' + '%s' % di.GetGatRev()
 
-        basename = 'skim%s*.root' % data_set_base
         if file_index is not None:
             basename = 'skim%s_%d.root' % (data_set_base, file_index)
+        else:
+            basename = 'skim%s*.root' % data_set_base
 
         path = dirname + '/' + basename
 
-        if os.path.isfile(path):
+        if os.path.isdir(dirname):
             return path
         else:
-            sys.exit('Error: FileIO::GetSkimFilePath(): path DNE')
+            sys.exit('Error: FileIO::GetSkimFilePath(): path DNE %s' % path)
 
     def SaveNPY(self, array, cpd, cut_scheme):
         """
