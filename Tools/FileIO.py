@@ -3,6 +3,7 @@
 import os
 import sys
 import numpy as np
+import h5py
 
 import Tools.DataInfo as DataInfo
 
@@ -87,6 +88,29 @@ class FileIO:
 
         np.savez(file = path, arrayDict = dict) # the LHS arrayDict is used as the keyword
 
+    def SaveHDF5(self, dict):
+        """
+        Save a dictionary holding data arrays into one .npz file
+        """
+        data_set = self.data_set
+        data_type = self.data_type
+        file_index = self.file_index
+        bds_output_dirname = self.bds_output_dirname
+
+        dirname = bds_output_dirname
+        if file_index is not None:
+            basename = '%s_%s_%d.npz' % (data_set, data_type, file_index)
+        else:
+            basename = '%s_%s.npz' % (data_set, data_type)
+        path = dirname + '/' + basename
+
+        f = h5py.File(path, 'w')
+        for grp_name in dict:
+            grp = f.create_group(grp_name)
+            for dset_name in dict[grp_name]:
+                dset = grp.create_dataset(dset_name, data = dict[grp_name][dset_name])
+        f.close()
+
     def GetGlobPathNPZ(self):
         """
         Get wildcard path to NPZ files from split jobs
@@ -97,4 +121,16 @@ class FileIO:
 
         dirname = bds_output_dirname
         basename = '%s_%s_*.npz' % (data_set, data_type)
+        return dirname + '/' + basename
+
+    def GetGlobPathHDF5(self):
+        """
+        Get wildcard path to HDF5 files from split jobs
+        """
+        data_set = self.data_set
+        data_type = self.data_type
+        bds_output_dirname = self.bds_output_dirname
+
+        dirname = bds_output_dirname
+        basename = '%s_%s_*.hdf5' % (data_set, data_type)
         return dirname + '/' + basename

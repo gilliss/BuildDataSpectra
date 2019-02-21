@@ -3,12 +3,14 @@
 import os
 import glob
 import numpy as np
+import h5py
 
 import Tools.FileIO as FileIO
 import Tools.DataInfo as DataInfo
 
 class Stitch:
     """
+    Stitch together Gather jobs that were split up
     """
     def __init__(self, st):
         self.data_set = st.data_set
@@ -38,19 +40,22 @@ class Stitch:
             for cut_scheme in cut_scheme_list:
                 data_dict[cpd][cut_scheme] = np.array([])
 
-        glob_path = io.GetGlobPathNPZ()
-        path_list = glob.glob(glob_path)
+        # Gather files to stitch
+        glob_path = io.GetGlobPathHDF5()
+        glob_list = sorted(glob.glob(glob_path))
 
-        for path in path_list:
-            d = np.load(path)['arrayDict'].item() # use numpy.ndarray.item() to copy the contents of dtype=object to a Python scalar
-            for cpd in data_dict:
-                for cut_scheme in cut_scheme_list:
-                    data_dict[cpd][cut_scheme] =\
-                        np.insert(data_dict[cpd][cut_scheme], len(data_dict[cpd][cut_scheme]), d[cpd][cut_scheme])
+        # Loop files and stitch in data_dict
+        for path in glob_list:
+            f = h5py.File(path, 'r')
+            for grp_name in data_dict:
+                for dset_name in data_dict[grp_name]:
+                    data_dict[grp_name][dset_name] =\
+                        np.insert(data_dict[grp_name][dset_name], len(data_dict[grp_name][dset_name]), f[grp_name][dset_name])
+            f.close()
 
         # Save
-        io.SaveNPZ(data_dict)
+        io.SaveHDF5(data_dict)
 
         # Delete split files
-        for path in path_list:
+        for path in glob_list:
             os.remove(path)
