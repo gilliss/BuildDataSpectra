@@ -99,9 +99,9 @@ class FileIO:
 
         dirname = bds_output_dirname
         if file_index is not None:
-            basename = '%s_%s_%d.npz' % (data_set, data_type, file_index)
+            basename = '%s_%s_%d.hdf5' % (data_set, data_type, file_index)
         else:
-            basename = '%s_%s.npz' % (data_set, data_type)
+            basename = '%s_%s.hdf5' % (data_set, data_type)
         path = dirname + '/' + basename
 
         f = h5py.File(path, 'w')
